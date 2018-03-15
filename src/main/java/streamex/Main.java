@@ -1,8 +1,10 @@
 package streamex;
 
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 
 import static java.util.Comparator.comparing;
 import static java.util.Comparator.comparingInt;
@@ -23,6 +25,12 @@ public class Main {
                 new Transaction(mario, 2012, 700),
                 new Transaction(alan, 2012, 950)
         );
+
+        Function<String, Integer> function = Integer:: parseInt;
+
+        Class<?> clazz = function.getClass();
+        function.apply("12");
+
 
         getTransactionsByYear(transactions, 2011).stream().forEach(System.out::println);
 
@@ -75,8 +83,8 @@ public class Main {
     public static Boolean areAnyTradersFromCity(List<Transaction> transactions, String city) {
         return transactions.stream()
                 .anyMatch(transaction -> transaction.getTrader()
-                                                    .getCity()
-                                                    .equals(city));
+                        .getCity()
+                        .equals(city));
     }
 
     public static void printAllTransactionsFromTradersFromCity(List<Transaction> transactions, String city) {
@@ -97,5 +105,8 @@ public class Main {
                 .min(comparingInt(Transaction::getValue))
                 .get();
     }
+
+
+
 
 }
