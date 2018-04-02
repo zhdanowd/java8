@@ -1,4 +1,4 @@
-package streamex;
+package streamex.tradersoperations;
 
 public class Transaction {
 

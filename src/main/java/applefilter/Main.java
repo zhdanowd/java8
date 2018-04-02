@@ -19,13 +19,16 @@ public class Main {
         apples.add(new Apple("green", 155.5));
         apples.add(new Apple("red", 140));
 
-        Predicate <Apple> greenApples = apple -> apple.getColor().equals("green");
-        System.out.println(filter(apples, greenApples));
-        System.out.println(filter(apples, apple -> apple.getWeight() >= 150));
-        System.out.println(filter(apples, apple -> apple.getWeight() < 150 && apple.getColor().equals
-                ("green")));
+        Predicate<Apple> greenApples = apple -> apple.getColor().equals("green");
+        Predicate<Apple> notGreenApples = greenApples.negate();
 
-        apples.sort(comparing(Apple::getColor));
+        System.out.println(filter(apples, greenApples));
+        System.out.println(filter(apples, notGreenApples));
+
+        System.out.println(filter(apples, apple -> apple.getWeight() >= 150));
+        System.out.println(filter(apples, apple -> apple.getWeight() < 150 && apple.getColor().equals("green")));
+
+        apples.sort(comparing(Apple::getColor).thenComparingDouble(Apple::getWeight).reversed());
         System.out.println(apples);
 
     }

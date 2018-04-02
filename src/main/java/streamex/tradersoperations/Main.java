@@ -1,10 +1,8 @@
-package streamex;
+package streamex.tradersoperations;
 
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
-import java.util.function.Function;
 
 import static java.util.Comparator.comparing;
 import static java.util.Comparator.comparingInt;
@@ -26,26 +24,28 @@ public class Main {
                 new Transaction(alan, 2012, 950)
         );
 
-        Function<String, Integer> function = Integer:: parseInt;
-
-        Class<?> clazz = function.getClass();
-        function.apply("12");
-
-
+        //Find all transactions in the year 2011 and sort them by value (small to high).
         getTransactionsByYear(transactions, 2011).stream().forEach(System.out::println);
 
+        //What are all the unique cities where the traders work
         getCitiesOfTraders(transactions).forEach(System.out::println);
 
+        //Find all traders from Cambridge and sort them by name
         getTradersFromCity(transactions, "Cambridge").forEach(System.out::println);
 
+        //Return a string of all traders’ names sorted alphabetically.
         System.out.println(getSortedTradersName(transactions));
 
+        //Are any traders based in Milan?
         System.out.println(areAnyTradersFromCity(transactions, "Milan"));
 
+        //Print all transactions’ values from the traders living in Cambridge.
         printAllTransactionsFromTradersFromCity(transactions, "Cambridge");
 
+        //What’s the highest value of all the transactions?
         System.out.println(maxTransaction(transactions));
 
+        //Find the transaction with the smallest value
         System.out.println(minTransaction(transactions));
     }
 
@@ -100,13 +100,11 @@ public class Main {
                 .get();
     }
 
-    public static Transaction minTransaction(List<Transaction> transactions) {
+    public static Integer minTransaction(List<Transaction> transactions) {
         return transactions.stream()
-                .min(comparingInt(Transaction::getValue))
-                .get();
+                .mapToInt(Transaction::getValue)
+                .min()
+                .getAsInt();
     }
-
-
-
 
 }
